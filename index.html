@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <style>
+    /* Estilos para el reloj */
+    .clock {
+      font-family: Arial, sans-serif;
+      font-size: 80px;
+      color: white;
+      background-color: black;
+      text-align: center;
+    }
+
+    /* Estilos para las opciones AM y PM */
+    .ampm {
+      font-size: 20px;
+      display: inline-block;
+      vertical-align: middle;
+      margin-left: 10px;
+    }
+
+    /* Estilos para el color amarillo */
+    .yellow {
+      color: yellow;
+    }
+  </style>
+</head>
+<body>
+  <div class="clock">
+    <span id="hour"></span>:<span id="minute"></span>
+    <span class="ampm">
+      <span id="am">AM</span>/<span id="pm">PM</span>
+    </span>
+  </div>
+  <script>
+    // Función para actualizar el reloj cada segundo
+    function updateClock() {
+      // Obtener la fecha y hora actual
+      let date = new Date();
+      let hour = date.getHours();
+      let minute = date.getMinutes();
+      let ampm = hour >= 12 ? "pm" : "am";
+
+      // Convertir la hora a formato de 12 horas
+      hour = hour % 12;
+      hour = hour ? hour : 12;
+
+      // Añadir un cero delante de los minutos si son menores de 10
+      minute = minute < 10 ? "0" + minute : minute;
+
+      // Seleccionar los elementos del DOM para mostrar la hora y las opciones AM y PM
+      let hourElement = document.getElementById("hour");
+      let minuteElement = document.getElementById("minute");
+      let amElement = document.getElementById("am");
+      let pmElement = document.getElementById("pm");
+
+      // Asignar la hora y las opciones AM y PM a los elementos del DOM
+      hourElement.textContent = hour;
+      minuteElement.textContent = minute;
+      amElement.classList.toggle("yellow", ampm == "am");
+      pmElement.classList.toggle("yellow", ampm == "pm");
+    }
+
+    // Llamar a la función updateClock una vez al cargar la página
+    updateClock();
+
+    // Llamar a la función updateClock cada segundo usando setInterval
+    setInterval(updateClock, 1000);
+  </script>
+</body>
+</html>
